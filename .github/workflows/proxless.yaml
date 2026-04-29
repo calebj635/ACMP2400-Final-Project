@@ -9,6 +9,20 @@ jobs:
     steps:
       - name: get_code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v 6.0.2
+
+      - name: show_dockerfile
+        run: |
+          pwd
+          ls -la
+          echo '--- Dockerfile seen by runner ---'
+          sed -n '1,20p' Dockerfile
+          echo '--- hex dump ---'
+          xxd -g 1 -l 120 Dockerfile
+          echo '--- git version of Dockerfile ---'
+          git show HEAD:Dockerfile | sed -n '1,20p'
+          echo '--- all Dockerfiles ---'
+          find . -name 'Dockerfile' -o -name '*.Dockerfile'
+      
       - name: docker_build
         run: |
           docker build -t pipeline-test .
