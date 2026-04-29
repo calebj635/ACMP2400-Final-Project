@@ -35,6 +35,24 @@ jobs:
             name: project-sbom
             path: sbom.json
             compression-level: 0
+
+  terraform-stage-1:
+    needs: [build-and-curl,sbom-scan-and-test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: get_code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v 6.0.2
+      - name: terraform-stage-1
+        uses: ./.github/actions/terraform
+        with:
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          STATE_KEY: 'teacher'
+          TF_STAGE: 'stage1'
+
+  
             
         
       
