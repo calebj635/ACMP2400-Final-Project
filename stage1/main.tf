@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
-      version = "4.08.0"
+      version = "4.68.0"
     }
   }
   backend "azurerm" {
@@ -17,9 +17,9 @@ provider "azurerm" {
   features {}
 }
 
-resource "azurerm_container_registry" "teacher-acr" {
-  name = "acrteacheracmp2400"
-  resource_group_name = "rg-teacher"
+resource "azurerm_container_registry" "cjefferson-acr" {
+  name = "acrcjeffersonacmp2400"
+  resource_group_name = "rg-cjefferson"
   location = "Central US"
   sku = "Basic"
   admin_enabled = false
