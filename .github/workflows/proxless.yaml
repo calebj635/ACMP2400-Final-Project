@@ -106,6 +106,7 @@ jobs:
 
   terraform-stage-3:
     needs: pre-eval
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - name: get_code
@@ -119,4 +120,5 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
           STATE_KEY: 'cjefferson'
           TF_STAGE: 'stage3'
+
         
