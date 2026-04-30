@@ -20,6 +20,9 @@ inputs:
   TF_STAGE:
     description: 'The Terraform Deployment Stage'
     required: true
+  DJANGO_SECRET_KEY_PROD:
+    description: 'Secret key needed for django to start'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
