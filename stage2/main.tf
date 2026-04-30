@@ -9,12 +9,12 @@ terraform {
       version = "4.68.0"
     }
   }
-backend "azurerm" {
-  resource_group_name = "rg-acmp-final"
-  storage_account_name = "acmp2400storageaccount"
-  container_name = "big-tf-state-acmp2400"
-  use_azuread_auth = true
-}
+  backend "azurerm" {
+    resource_group_name = "rg-acmp-final"
+    storage_account_name = "acmp2400storageaccount"
+    container_name = "big-tf-state-acmp2400"
+    use_azuread_auth = true
+  }
 }
 
 provider "azurerm" {
@@ -40,23 +40,23 @@ resource "azurerm_container_group" "cjefferson-aci" {
   container {
     name = "final"
     image = "acrcjeffersonacmp2400.azurecr.io/final:latest"
+    cpu = "0.5
     memory = "1.5"
 
-  ports {
-    port = 8000
-    protocol = "TCP"
+    ports {
+      port = 8000
+      protocol = "TCP"
     }
 
-  secure_environment_variables = {
-    DJANGO_SECRET_KEY = var.DJANGO_SECRET_KEY_PROD
+    secure_environment_variables = {
+      DJANGO_SECRET_KEY = var.DJANGO_SECRET_KEY_PROD
+    }
   }
 
-}
   #POTENTIALLY CHANGE TO CJEFFERSON FROM TEACHER
   image_registry_credential {
-    server = "acrteacheracmp2400.azurecr.io"
+    server = "acrcjeffersonacmp2400.azurecr.io"
     username = var.ARM_CLIENT_ID
     password = var.ARM_CLIENT_SECRET
-
   }
 }
