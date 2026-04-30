@@ -74,7 +74,22 @@ jobs:
           docker login acrcjeffersonacmp2400.azurecr.io --username "$ARM_CLIENT_ID" --password "$ARM_CLIENT_SECRET"
           docker push acrcjeffersonacmp2400.azurecr.io/final
             
-        
+  terraform-stage-2:
+    needs: build-tag-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: get_code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v 6.0.2
+      - name: terraform-stage-2
+        uses: ./.github/actions/terraform
+        with:
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          STATE_KEY: 'cjefferson'
+          TF_STAGE: 'stage2'
+          DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
       
 
 
