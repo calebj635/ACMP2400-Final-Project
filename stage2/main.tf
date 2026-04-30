@@ -40,7 +40,7 @@ resource "azurerm_container_group" "cjefferson-aci" {
   container {
     name = "final"
     image = "acrcjeffersonacmp2400.azurecr.io/final:latest"
-    cpu = "0.5
+    cpu = "0.5"
     memory = "1.5"
 
     ports {
